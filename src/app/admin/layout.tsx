@@ -1,23 +1,65 @@
-import Link from 'next/link';
+'use client';
 
-/**
- * The current admin screens are an unauthenticated localStorage prototype.
- * Keep the prototype source available for later backend work, but do not
- * expose it as a management system in the static customer deployment.
- */
-export default function AdminLayout({}: { children: React.ReactNode }) {
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type { Session } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
+import AdminLogin from '@/components/admin/AdminLogin';
+
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setLoading(false);
+    });
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession);
+    });
+    return () => listener.subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <main className="flex min-h-screen items-center justify-center bg-ink text-sm text-gray-400">
+        Loading admin panel…
+      </main>
+    );
+  }
+
+  if (!session) {
+    return <AdminLogin />;
+  }
+
   return (
-    <main className="min-h-screen bg-[#17191C] px-6 py-20 text-white">
-      <div className="mx-auto max-w-2xl rounded-2xl border border-[#D4A853]/30 bg-[#23262B] p-8 text-center shadow-xl">
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#D4A853]">SVV Estates</p>
-        <h1 className="mb-4 text-3xl font-semibold">Management tools are currently offline</h1>
-        <p className="mb-8 text-gray-300">
-          This private prototype is disabled during the static-first launch. No property, lead, or customer information is collected or stored here.
-        </p>
-        <Link href="/" className="inline-flex rounded-full bg-[#D4A853] px-6 py-3 font-semibold text-[#17191C] transition-colors hover:bg-[#e4bd70]">
-          Return to website
-        </Link>
-      </div>
+    <main className="min-h-screen bg-ink text-white">
+      <header className="flex items-center justify-between border-b border-white/10 bg-surface-dark px-6 py-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">SVV Estates</p>
+          <nav className="flex items-center gap-4 text-lg font-bold">
+            <Link href="/admin" className={pathname === '/admin' ? 'text-white' : 'text-gray-500 hover:text-gray-300'}>
+              Listings
+            </Link>
+            <Link href="/admin/leads" className={pathname === '/admin/leads' ? 'text-white' : 'text-gray-500 hover:text-gray-300'}>
+              Leads
+            </Link>
+          </nav>
+        </div>
+        <div className="flex items-center gap-4 text-xs text-gray-400">
+          <span>{session.user.email}</span>
+          <button
+            onClick={() => supabase.auth.signOut()}
+            className="rounded-lg border border-white/15 px-3 py-1.5 font-semibold text-white transition hover:bg-white/10"
+          >
+            Sign out
+          </button>
+        </div>
+      </header>
+      <div className="mx-auto max-w-6xl px-6 py-10">{children}</div>
     </main>
   );
 }

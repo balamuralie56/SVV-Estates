@@ -21,7 +21,7 @@ export default function Footer() {
   if (isAdmin) return null;
 
   return (
-    <footer className="relative bg-white dark:bg-[#1E1E1E] text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <footer className="relative bg-white dark:bg-ink-muted text-gray-600 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -48,22 +48,22 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/" className="text-sm hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Link href="/" className="text-sm hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {t.home}
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-sm hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Link href="/about" className="text-sm hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {t.about}
                 </Link>
               </li>
               <li>
-                <Link href="/projects" className="text-sm hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Link href="/projects" className="text-sm hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {t.projects}
                 </Link>
               </li>
               <li>
-                <Link href="/book-visit" className="text-sm hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Link href="/book-visit" className="text-sm hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {t.bookVisit}
                 </Link>
               </li>
@@ -77,17 +77,17 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/projects?type=plot" className="text-sm hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Link href="/projects?type=plot" className="text-sm hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {t.plots}
                 </Link>
               </li>
               <li>
-                <Link href="/projects?type=villa" className="text-sm hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Link href="/projects?type=villa" className="text-sm hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {t.villas}
                 </Link>
               </li>
               <li>
-                <Link href="/projects?type=farmland" className="text-sm hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Link href="/projects?type=farmland" className="text-sm hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {t.farmlands}
                 </Link>
               </li>
@@ -101,7 +101,7 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-gold-light dark:text-gold-dark shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-accent dark:text-accent-2 shrink-0 mt-0.5" />
                 <span>
                   {language === 'en'
                     ? businessContact.address
@@ -109,14 +109,14 @@ export default function Footer() {
                 </span>
               </li>
               <li className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-gold-light dark:text-gold-dark shrink-0" />
-                <a href={businessContact.phoneHref} className="hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Phone className="h-5 w-5 text-accent dark:text-accent-2 shrink-0" />
+                <a href={businessContact.phoneHref} className="hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {businessContact.phoneDisplay}
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-gold-light dark:text-gold-dark shrink-0" />
-                <a href={`mailto:${businessContact.email}`} className="hover:text-gold-light dark:hover:text-gold-dark transition-colors">
+                <Mail className="h-5 w-5 text-accent dark:text-accent-2 shrink-0" />
+                <a href={`mailto:${businessContact.email}`} className="hover:text-accent dark:hover:text-accent-2 transition-colors">
                   {businessContact.email}
                 </a>
               </li>
@@ -130,10 +130,10 @@ export default function Footer() {
             {t.copyRight}
           </p>
           <div className="flex space-x-6 text-gray-500 dark:text-gray-500">
-            <Link href="/privacy" className="hover:text-gold-light dark:hover:text-gold-dark">
+            <Link href="/privacy" className="hover:text-accent dark:hover:text-accent-2">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="hover:text-gold-light dark:hover:text-gold-dark">
+            <Link href="/terms" className="hover:text-accent dark:hover:text-accent-2">
               Terms & Conditions
             </Link>
           </div>

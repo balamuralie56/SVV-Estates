@@ -39,7 +39,7 @@ export default function Navbar() {
   if (isAdmin) return null;
 
   return (
-    <header className="sticky top-0 z-50 w-full transition-all duration-300 bg-white/80 dark:bg-[#242424]/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
+    <header className="sticky top-0 z-50 w-full transition-all duration-300 bg-white/80 dark:bg-ink/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -62,8 +62,8 @@ export default function Navbar() {
                 href={link.href}
                 className={`text-sm font-medium transition-colors duration-200 ${
                   isActive(link.href)
-                    ? 'text-gold-light dark:text-gold-dark border-b-2 border-gold-light dark:border-gold-dark pb-1'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gold-light dark:hover:text-gold-dark'
+                    ? 'text-accent dark:text-accent-2 border-b-2 border-accent dark:border-accent-2 pb-1'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-accent dark:hover:text-accent-2'
                 }`}
               >
                 {link.name}
@@ -95,7 +95,7 @@ export default function Navbar() {
             {/* Quick Contact CTA */}
             <a
               href="tel:+919994115154"
-              className="flex items-center space-x-2 bg-charcoal hover:bg-charcoal/95 dark:bg-gold-dark dark:hover:bg-gold-dark/90 text-white dark:text-charcoal px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-sm hover:shadow-md"
+              className="flex items-center space-x-2 bg-ink hover:bg-ink/95 dark:bg-accent-2 dark:hover:bg-accent-2/90 text-white dark:text-ink px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-sm hover:shadow-md"
             >
               <Phone className="h-4 w-4" />
               <span>+91 99941 15154</span>
@@ -133,7 +133,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-[#242424] px-4 py-4 space-y-3 shadow-lg">
+        <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-ink px-4 py-4 space-y-3 shadow-lg">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -141,7 +141,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className={`block px-3 py-2.5 rounded-lg text-base font-medium transition-all ${
                 isActive(link.href)
-                  ? 'bg-gold-light/10 text-gold-light dark:text-gold-dark font-semibold'
+                  ? 'bg-accent/10 text-accent dark:text-accent-2 font-semibold'
                   : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
               }`}
             >
@@ -151,7 +151,7 @@ export default function Navbar() {
           <div className="pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col space-y-3">
             <a
               href="tel:+919994115154"
-              className="flex items-center justify-center space-x-2 bg-charcoal dark:bg-gold-dark text-white dark:text-charcoal py-3 rounded-lg text-base font-semibold shadow-sm"
+              className="flex items-center justify-center space-x-2 bg-ink dark:bg-accent-2 text-white dark:text-ink py-3 rounded-lg text-base font-semibold shadow-sm"
             >
               <Phone className="h-5 w-5" />
               <span>+91 99941 15154</span>

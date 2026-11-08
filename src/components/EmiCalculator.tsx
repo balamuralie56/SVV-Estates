@@ -39,10 +39,10 @@ export default function EmiCalculator({ initialPrice = 3000000 }: EmiCalculatorP
   const totalInterest = totalPayment - loanAmount;
 
   return (
-    <div className="bg-white dark:bg-[#1E1E1E] rounded-2xl p-6 md:p-8 shadow-md border border-gray-200/50 dark:border-gray-800/50 transition-colors duration-300">
+    <div className="bg-white dark:bg-ink-muted rounded-2xl p-6 md:p-8 shadow-md border border-gray-200/50 dark:border-gray-800/50 transition-colors duration-300">
       <div className="mb-6">
         <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-          <Landmark className="h-5 w-5 text-gold-light dark:text-gold-dark" />
+          <Landmark className="h-5 w-5 text-accent dark:text-accent-2" />
           {t.emiTitle}
         </h3>
         <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -59,7 +59,7 @@ export default function EmiCalculator({ initialPrice = 3000000 }: EmiCalculatorP
               <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t.propertyPrice}
               </label>
-              <span className="text-base font-semibold text-gold-light dark:text-gold-dark">
+              <span className="text-base font-semibold text-accent dark:text-accent-2">
                 {formatCurrency(price)}
               </span>
             </div>
@@ -70,7 +70,7 @@ export default function EmiCalculator({ initialPrice = 3000000 }: EmiCalculatorP
               step="100000"
               value={price}
               onChange={(e) => setPrice(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-gold-light dark:accent-gold-dark"
+              className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-accent dark:accent-accent-2"
             />
           </div>
 
@@ -91,7 +91,7 @@ export default function EmiCalculator({ initialPrice = 3000000 }: EmiCalculatorP
               step="50000"
               value={effectiveDownPayment}
               onChange={(e) => setDownPayment(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-gold-light dark:accent-gold-dark"
+              className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-accent dark:accent-accent-2"
             />
           </div>
 
@@ -111,7 +111,7 @@ export default function EmiCalculator({ initialPrice = 3000000 }: EmiCalculatorP
                 step="0.1"
                 value={interestRate}
                 onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-[#2A2A2A] border border-gray-200 dark:border-gray-800 text-sm font-semibold focus:outline-none focus:border-gold-light"
+                className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-[#2A2A2A] border border-gray-200 dark:border-gray-800 text-sm font-semibold focus:outline-none focus:border-accent"
               />
             </div>
 
@@ -126,7 +126,7 @@ export default function EmiCalculator({ initialPrice = 3000000 }: EmiCalculatorP
               <select
                 value={tenure}
                 onChange={(e) => setTenure(Number(e.target.value))}
-                className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-[#2A2A2A] border border-gray-200 dark:border-gray-800 text-sm font-semibold focus:outline-none focus:border-gold-light"
+                className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-[#2A2A2A] border border-gray-200 dark:border-gray-800 text-sm font-semibold focus:outline-none focus:border-accent"
               >
                 <option value={5}>5 Years</option>
                 <option value={10}>10 Years</option>
@@ -145,7 +145,7 @@ export default function EmiCalculator({ initialPrice = 3000000 }: EmiCalculatorP
             <span className="text-xs font-semibold tracking-wider text-gray-500 dark:text-gray-400 uppercase">
               {t.monthlyEmi}
             </span>
-            <div className="text-3xl md:text-4xl font-extrabold text-gold-light dark:text-gold-dark mt-1">
+            <div className="text-3xl md:text-4xl font-extrabold text-accent dark:text-accent-2 mt-1">
               {formatCurrency(emi)}
               <span className="text-sm font-medium text-gray-500 dark:text-gray-400 ml-1">
                 / {t.perMonth}
@@ -164,7 +164,7 @@ export default function EmiCalculator({ initialPrice = 3000000 }: EmiCalculatorP
             </div>
             <div className="flex justify-between text-sm pt-2 border-t border-dashed border-gray-200 dark:border-gray-700 font-semibold">
               <span className="text-gray-800 dark:text-gray-200">Total Payment (Principal + Interest)</span>
-              <span className="text-gold-light dark:text-gold-dark">{formatCurrency(totalPayment > 0 ? totalPayment : 0)}</span>
+              <span className="text-accent dark:text-accent-2">{formatCurrency(totalPayment > 0 ? totalPayment : 0)}</span>
             </div>
           </div>
         </div>

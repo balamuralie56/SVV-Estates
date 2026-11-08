@@ -1,4 +1,4 @@
-import type { LocalizedText } from './listings';
+import type { LocalizedText } from '@/lib/listings';
 
 export interface CaseStudy {
   id: string;

@@ -51,7 +51,7 @@ export function ClientProvider({ children }: { children: React.ReactNode }) {
   // Avoid hydration flicker by rendering children only after mounting on the client
   if (!mounted) {
     return (
-      <div style={{ visibility: 'hidden' }} className="min-h-screen bg-[#FAF9F6] dark:bg-[#1A1A1A]">
+      <div style={{ visibility: 'hidden' }} className="min-h-screen bg-paper dark:bg-ink">
         {children}
       </div>
     );
@@ -59,7 +59,7 @@ export function ClientProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AppContext.Provider value={{ language, setLanguage, theme, toggleTheme }}>
-      <div className={theme === 'dark' ? 'dark bg-[#1A1A1A] text-gray-100 min-h-screen transition-colors duration-300' : 'bg-[#FAF9F6] text-gray-900 min-h-screen transition-colors duration-300'}>
+      <div className={theme === 'dark' ? 'dark bg-ink text-gray-100 min-h-screen transition-colors duration-300' : 'bg-paper text-gray-900 min-h-screen transition-colors duration-300'}>
         {children}
       </div>
     </AppContext.Provider>

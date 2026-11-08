@@ -1,26 +1,37 @@
 @import "tailwindcss";
 
+/* Tailwind v4 defaults `dark:` to the OS prefers-color-scheme media query.
+   This app toggles a `.dark` class on <html> instead (ClientProvider.tsx),
+   so the variant must be told to key off that class. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * "Keynote" palette: deep ink navy + a violet-to-cyan accent gradient,
+ * instead of the previous gold/charcoal scheme. Token names (accent,
+ * accent-2, ink, surface-dark, ...) are unchanged from before so the
+ * rest of the app didn't need touching -- only the values changed.
+ */
 @theme {
-  --color-gold-light: #D2B283;
-  --color-gold-dark: #CEAF83;
-  --color-gold-hover: #C39F6D;
-  --color-charcoal: #242424;
-  --color-muted-black: #383535;
-  --color-cream: #FAF9F6;
-  --color-card-dark: #1F1F1F;
-  --color-border-dark: #2F2F2F;
-  
+  --color-accent: #8B5CF6;
+  --color-accent-2: #22D3EE;
+  --color-accent-hover: #7C3AED;
+  --color-ink: #0B0E17;
+  --color-ink-muted: #1A1F2E;
+  --color-paper: #F5F6FB;
+  --color-surface-dark: #121622;
+  --color-border-dark: #232A3D;
+
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 :root {
-  --background: #FAF9F6;
-  --foreground: #383535;
+  --background: #F5F6FB;
+  --foreground: #1A1F2E;
 }
 
 .dark {
-  --background: #242424;
-  --foreground: #F3F4F6;
+  --background: #0B0E17;
+  --foreground: #E8EAF5;
 }
 
 body {
@@ -38,9 +49,58 @@ body {
 }
 
 .dark .glassmorphism {
-  background: rgba(36, 36, 36, 0.7);
+  background: rgba(18, 22, 34, 0.7);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Presentation-deck accent gradient, used on headline text / CTAs */
+.gradient-accent-text {
+  background: linear-gradient(110deg, #8B5CF6, #22D3EE);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-accent-bg {
+  background: linear-gradient(135deg, #8B5CF6, #6D28D9 45%, #22D3EE);
+}
+
+.glow-accent {
+  box-shadow: 0 0 60px -12px rgba(139, 92, 246, 0.55);
+}
+
+/* Faint grid backdrop used behind the hero / dark sections for depth */
+.grid-backdrop {
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.14) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 85%);
+}
+
+@keyframes hero-orbit {
+  0% { transform: translateY(0px) rotateY(0deg); }
+  50% { transform: translateY(-14px) rotateY(180deg); }
+  100% { transform: translateY(0px) rotateY(360deg); }
+}
+.animate-hero-orbit {
+  animation: hero-orbit 16s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-orbit,
+  .animate-glow-pulse {
+    animation: none;
+  }
 }
 
 /* Hide scrollbar for layout selector */
