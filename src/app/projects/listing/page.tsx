@@ -4,11 +4,12 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Calendar, Camera, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { Calendar, Camera, Expand, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { getPublishedListingBySlug, type Listing } from '@/lib/listings';
 import { formatPlotSize, formatPrice } from '@/lib/units';
 import { businessContact, getWhatsAppUrl } from '@/lib/public-content';
 import { useApp } from '@/components/ClientProvider';
+import ImageLightbox from '@/components/ImageLightbox';
 
 /**
  * Deliberately a static route (no [slug] dynamic segment). `output: 'export'`
@@ -23,6 +24,7 @@ function ListingDetailContent() {
   const searchParams = useSearchParams();
   const slug = searchParams.get('slug') ?? '';
   const [listing, setListing] = useState<Listing | null | 'loading'>('loading');
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const result = slug ? getPublishedListingBySlug(slug) : Promise.resolve(null);
@@ -53,9 +55,15 @@ function ListingDetailContent() {
           {listing.media.length > 0 ? (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {listing.media.map((item, index) => (
-                <div key={item.id} className="relative h-64 overflow-hidden rounded-2xl">
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setLightboxIndex(index)}
+                  className="group relative h-80 overflow-hidden rounded-2xl bg-gray-100 text-left dark:bg-ink-muted"
+                >
                   {item.kind === 'video' ? (
-                    <video src={item.url} controls className="h-full w-full object-cover" />
+                     
+                    <video src={item.url} muted className="h-full w-full object-contain" />
                   ) : (
                     <Image
                       src={item.url}
@@ -63,7 +71,7 @@ function ListingDetailContent() {
                       fill
                       sizes="(min-width: 640px) 50vw, 100vw"
                       priority={index === 0}
-                      className="object-cover"
+                      className="object-contain"
                       unoptimized
                     />
                   )}
@@ -73,7 +81,13 @@ function ListingDetailContent() {
                       {item.caption[language]}
                     </span>
                   )}
-                </div>
+                  <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
+                    <span className="flex items-center gap-2 rounded-full bg-white/90 px-4 py-2 text-xs font-bold text-gray-900">
+                      <Expand className="h-4 w-4" />
+                      {language === 'ta' ? 'பெரிதாக்கிப் பார்க்க' : 'View full size'}
+                    </span>
+                  </span>
+                </button>
               ))}
             </div>
           ) : (
@@ -93,6 +107,15 @@ function ListingDetailContent() {
         </div>
         <aside className="h-fit space-y-5 rounded-2xl border border-gray-200 bg-white p-6 shadow-md dark:border-gray-800 dark:bg-surface-dark lg:sticky lg:top-24"><h2 className="text-xl font-bold text-gray-900 dark:text-white">Enquire about this property</h2><p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">Choose a contact action. Sending a WhatsApp message or making a call starts a conversation; it does not confirm a booking or visit.</p><a href={getWhatsAppUrl(message)} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-3 text-sm font-bold text-white"><MessageCircle className="h-4 w-4" />Send WhatsApp enquiry</a><a href={businessContact.phoneHref} className="flex items-center justify-center gap-2 rounded-lg bg-ink px-4 py-3 text-sm font-bold text-white dark:bg-accent-2 dark:text-ink"><Phone className="h-4 w-4" />Call {businessContact.phoneDisplay}</a><Link href={`/book-visit?listing=${listing.slug}`} className="flex items-center justify-center gap-2 rounded-lg border border-gray-200 px-4 py-3 text-sm font-bold text-gray-700 dark:border-gray-700 dark:text-gray-200"><Calendar className="h-4 w-4" />Request a site visit</Link></aside>
       </section>
+
+      {lightboxIndex !== null && (
+        <ImageLightbox
+          items={listing.media.map((m) => ({ url: m.url, kind: m.kind, caption: m.caption[language] }))}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onNavigate={setLightboxIndex}
+        />
+      )}
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function ListingCard({ listing, language, viewDetailsLabel, prior
   return (
     <TiltCard className="group rounded-2xl">
       <article className="h-full overflow-hidden rounded-2xl border border-gray-200/70 bg-white shadow-md transition-shadow duration-200 group-hover:shadow-2xl dark:border-gray-800 dark:bg-surface-dark">
-        <div className="relative h-48 bg-gray-100 dark:bg-[#282828]">
+        <div className="relative h-48 bg-gray-100 dark:bg-ink-muted">
           {photo ? (
             <>
               <Image
@@ -28,7 +28,7 @@ export default function ListingCard({ listing, language, viewDetailsLabel, prior
                 fill
                 sizes="(min-width: 768px) 33vw, 100vw"
                 priority={priority}
-                className="object-cover"
+                className="object-contain"
                 unoptimized
               />
               {photo.source === 'street_view' && (
