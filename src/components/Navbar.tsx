@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useApp } from './ClientProvider';
 import { translations } from '@/lib/i18n';
+import { businessContact } from '@/lib/public-content';
 import { Sun, Moon, Menu, X, Phone, Globe } from 'lucide-react';
 
 export default function Navbar() {
@@ -94,11 +95,11 @@ export default function Navbar() {
 
             {/* Quick Contact CTA */}
             <a
-              href="tel:+919994115154"
+              href={businessContact.phoneHref}
               className="flex items-center space-x-2 bg-ink hover:bg-ink/95 dark:bg-accent-2 dark:hover:bg-accent-2/90 text-white dark:text-ink px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-sm hover:shadow-md"
             >
               <Phone className="h-4 w-4" />
-              <span>+91 99941 15154</span>
+              <span>{businessContact.phoneDisplay}</span>
             </a>
           </div>
 
@@ -150,11 +151,11 @@ export default function Navbar() {
           ))}
           <div className="pt-4 border-t border-gray-200 dark:border-gray-800 flex flex-col space-y-3">
             <a
-              href="tel:+919994115154"
+              href={businessContact.phoneHref}
               className="flex items-center justify-center space-x-2 bg-ink dark:bg-accent-2 text-white dark:text-ink py-3 rounded-lg text-base font-semibold shadow-sm"
             >
               <Phone className="h-5 w-5" />
-              <span>+91 99941 15154</span>
+              <span>{businessContact.phoneDisplay}</span>
             </a>
           </div>
         </div>

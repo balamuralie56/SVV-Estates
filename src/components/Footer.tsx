@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useApp } from './ClientProvider';
 import { translations } from '@/lib/i18n';
-import { businessContact, getWhatsAppUrl } from '@/lib/public-content';
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { businessContact } from '@/lib/public-content';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 export default function Footer() {
   const { language, theme } = useApp();
@@ -139,20 +139,6 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
-      {/* Floating WhatsApp Button */}
-      <a
-        href={getWhatsAppUrl('Hello SVV Estates, I would like to enquire about currently available properties. I understand that sending this message starts a conversation and does not confirm an appointment.')}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 group"
-        aria-label="Chat on WhatsApp"
-      >
-        <MessageCircle className="h-7 w-7 fill-white text-green-500 group-hover:rotate-12 transition-transform duration-300" />
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-2 text-sm font-semibold transition-all duration-300 ease-out whitespace-nowrap">
-          {t.whatsappChat}
-        </span>
-      </a>
     </footer>
   );
 }

@@ -3,6 +3,7 @@ import "./globals.css";
 import { ClientProvider } from "@/components/ClientProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ContactFab from "@/components/ContactFab";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://svvestates.in'),
@@ -40,6 +41,7 @@ export default function RootLayout({
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />
+          <ContactFab />
         </ClientProvider>
       </body>
     </html>
