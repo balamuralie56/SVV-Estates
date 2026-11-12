@@ -45,7 +45,7 @@ export default function AdminLeadsPage() {
             {leads.length} total · {optedInCount} opted in to marketing updates
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {(['all', 'new', 'contacted', 'closed'] as const).map((status) => (
             <button
               key={status}
@@ -68,10 +68,10 @@ export default function AdminLeadsPage() {
         <div className="space-y-4">
           {filteredLeads.map((lead) => (
             <div key={lead.id} className="rounded-xl border border-white/10 bg-surface-dark p-5">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-bold text-white">{lead.name}</h3>
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0 space-y-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="break-words font-bold text-white">{lead.name}</h3>
                     <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${STATUS_STYLES[lead.status]}`}>
                       {lead.status}
                     </span>
@@ -93,14 +93,14 @@ export default function AdminLeadsPage() {
                     {lead.listing_title && <span>· {lead.listing_title}</span>}
                     <span>· {new Date(lead.created_at).toLocaleString('en-IN')}</span>
                   </div>
-                  {lead.message && <p className="max-w-xl text-sm text-gray-300">{lead.message}</p>}
+                  {lead.message && <p className="max-w-xl break-words text-sm text-gray-300">{lead.message}</p>}
                 </div>
                 <div className="flex items-center gap-2">
                   <a
                     href={`https://wa.me/${lead.phone.replace(/[^0-9]/g, '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-lg border border-white/15 p-2 text-emerald-400 hover:bg-white/5"
+                    className="rounded-lg border border-white/15 p-2.5 text-emerald-400 hover:bg-white/5 sm:p-2"
                     aria-label="Open WhatsApp"
                   >
                     <MessageCircle className="h-4 w-4" />
@@ -108,7 +108,7 @@ export default function AdminLeadsPage() {
                   <select
                     value={lead.status}
                     onChange={(e) => updateStatus(lead.id, e.target.value as LeadRow['status'])}
-                    className="rounded-lg border border-white/15 bg-ink px-2 py-1.5 text-xs text-white"
+                    className="flex-1 rounded-lg border border-white/15 bg-ink px-2 py-2 text-xs text-white sm:flex-none sm:py-1.5"
                   >
                     <option value="new">New</option>
                     <option value="contacted">Contacted</option>

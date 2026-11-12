@@ -36,7 +36,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-xl font-bold text-white">Listings</h2>
           <p className="text-xs text-gray-400">
@@ -46,7 +46,7 @@ export default function AdminDashboard() {
         {!creating && !editingId && (
           <button
             onClick={() => setCreating(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-bold text-white hover:bg-accent-hover"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-accent px-4 py-2.5 text-sm font-bold text-white hover:bg-accent-hover sm:py-2"
           >
             <Plus className="h-4 w-4" /> Add listing
           </button>
@@ -82,11 +82,11 @@ export default function AdminDashboard() {
       ) : (
         <div className="space-y-4">
           {listings.map((listing) => (
-            <div key={listing.id} className="rounded-xl border border-white/10 bg-surface-dark p-5">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-bold text-white">{listing.title_en}</h3>
+            <div key={listing.id} className="rounded-xl border border-white/10 bg-surface-dark p-4 sm:p-5">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <h3 className="font-bold text-white break-words">{listing.title_en}</h3>
                     <StatusBadge status={listing.status} />
                     {!listing.published && (
                       <span className="rounded-full bg-gray-700 px-2 py-0.5 text-[10px] font-bold uppercase text-gray-300">
@@ -94,27 +94,27 @@ export default function AdminDashboard() {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-400">
+                  <p className="break-all text-xs text-gray-400">
                     {listing.location_en} · /projects/listing?slug={listing.slug}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setExpandedMediaId(expandedMediaId === listing.id ? null : listing.id)}
-                    className="rounded-lg border border-white/15 px-3 py-1.5 text-xs font-semibold text-gray-200 hover:bg-white/5"
+                    className="flex-1 rounded-lg border border-white/15 px-3 py-2 text-xs font-semibold text-gray-200 hover:bg-white/5 sm:flex-none sm:py-1.5"
                   >
                     Media
                   </button>
                   <button
                     onClick={() => setEditingId(listing.id)}
-                    className="rounded-lg border border-white/15 p-2 text-gray-200 hover:bg-white/5"
+                    className="rounded-lg border border-white/15 p-2.5 text-gray-200 hover:bg-white/5 sm:p-2"
                     aria-label="Edit"
                   >
                     <Pencil className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(listing.id)}
-                    className="rounded-lg border border-red-500/30 p-2 text-red-400 hover:bg-red-500/10"
+                    className="rounded-lg border border-red-500/30 p-2.5 text-red-400 hover:bg-red-500/10 sm:p-2"
                     aria-label="Delete"
                   >
                     <Trash2 className="h-4 w-4" />

@@ -102,7 +102,7 @@ export default function ListingForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 rounded-2xl border border-white/10 bg-surface-dark p-6"
+      className="space-y-6 rounded-2xl border border-white/10 bg-surface-dark p-4 sm:p-6"
     >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="Slug (URL, lowercase letters/numbers/hyphens only)">
@@ -182,12 +182,13 @@ export default function ListingForm({
         </Field>
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-gray-300">
+      <label className="flex items-start gap-2 text-sm text-gray-300">
         <input
           name="price_on_request"
           type="checkbox"
           checked={form.price_on_request}
           onChange={(e) => update('price_on_request', e.target.checked)}
+          className="mt-0.5 shrink-0"
         />
         Show price as &quot;on request&quot; instead of the figures above
       </label>
@@ -219,25 +220,31 @@ export default function ListingForm({
         <textarea name="notes" rows={2} value={form.notes ?? ''} onChange={(e) => update('notes', e.target.value)} className={inputClass} />
       </Field>
 
-      <label className="flex items-center gap-2 text-sm font-semibold text-gray-200">
-        <input name="published" type="checkbox" checked={form.published} onChange={(e) => update('published', e.target.checked)} />
+      <label className="flex items-start gap-2 text-sm font-semibold text-gray-200">
+        <input
+          name="published"
+          type="checkbox"
+          checked={form.published}
+          onChange={(e) => update('published', e.target.checked)}
+          className="mt-0.5 shrink-0"
+        />
         Published (visible on the public site)
       </label>
 
       {error && <p className="text-sm font-medium text-red-400">{error}</p>}
 
-      <div className="flex gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <button
           type="submit"
           disabled={saving}
-          className="rounded-lg bg-accent px-5 py-2.5 text-sm font-bold text-white transition hover:bg-accent-hover disabled:opacity-60"
+          className="rounded-lg bg-accent px-5 py-3 text-sm font-bold text-white transition hover:bg-accent-hover disabled:opacity-60 sm:py-2.5"
         >
           {saving ? 'Saving…' : listingId ? 'Save changes' : 'Create listing'}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="rounded-lg border border-white/15 px-5 py-2.5 text-sm font-semibold text-gray-200 transition hover:bg-white/5"
+          className="rounded-lg border border-white/15 px-5 py-3 text-sm font-semibold text-gray-200 transition hover:bg-white/5 sm:py-2.5"
         >
           Cancel
         </button>

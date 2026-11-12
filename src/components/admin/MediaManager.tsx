@@ -115,7 +115,7 @@ export default function MediaManager({ listingId }: { listingId: string }) {
       >
         <UploadCloud className="h-6 w-6 text-gray-400" />
         <p className="text-xs font-semibold text-gray-300">
-          Drag photos or videos here, or click to choose files
+          Tap to choose photos or videos <span className="hidden sm:inline">(or drag and drop)</span>
         </p>
         <p className="text-[11px] text-gray-500">You can select multiple files at once</p>
         <input
@@ -168,7 +168,7 @@ export default function MediaManager({ listingId }: { listingId: string }) {
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             {media.map((item) => (
-              <div key={item.id} className="group relative overflow-hidden rounded-lg border border-white/10">
+              <div key={item.id} className="relative overflow-hidden rounded-lg border border-white/10">
                 {item.kind === 'video' ? (
                   <video src={item.url} className="h-24 w-full object-cover" controls muted />
                 ) : (
@@ -178,11 +178,13 @@ export default function MediaManager({ listingId }: { listingId: string }) {
                 <span className="absolute left-1 top-1 rounded bg-black/70 p-1 text-white">
                   {item.kind === 'video' ? <Film className="h-3 w-3" /> : <ImageIcon className="h-3 w-3" />}
                 </span>
+                {/* Always visible, not hover-only: a hover reveal is unreachable on touch screens. */}
                 <button
                   onClick={() => handleDelete(item)}
-                  className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-1 bg-black/70 py-1 text-[10px] font-semibold text-white opacity-0 transition group-hover:opacity-100"
+                  aria-label="Remove"
+                  className="absolute right-1 top-1 rounded-full bg-black/70 p-1.5 text-white transition hover:bg-red-600"
                 >
-                  <Trash2 className="h-3 w-3" /> Remove
+                  <Trash2 className="h-3.5 w-3.5" />
                 </button>
               </div>
             ))}
